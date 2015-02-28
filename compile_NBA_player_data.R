@@ -5,9 +5,6 @@ library(httr)
 library(dplyr)
 library(data.table)
 
-options (mc.cores = 1)
-options(java.parameters = "-Xmx8192M")
-
 # getting basic info with the John Wall example used in Greg Reda's post
 # http://www.gregreda.com/2015/02/15/web-scraping-finding-the-api/
 player_info <- html(paste0(
@@ -25,7 +22,7 @@ names(player_df) <- tolower(cols)
 # through some digging, I found the list of players to start with the ID 891. As for the end, I looked at
 # NBA rookies and found them to be in the low 200Ks. I'm sure there's a better way to do this, but....
 start.time <- Sys.time()
-for (i in 216601:220000) {
+for (i in 891:300000) {
         url <- paste0(
                 "http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=",
                 i,
@@ -47,13 +44,7 @@ end.time <- Sys.time()
 beep(7) 
 end.time - start.time
 
-write.csv(player_df, "./data/nba_players.csv", row.names=FALSE)
-write.csv(player_df, "player_df.Rda")
-
-load("player_df.Rda")
-player_file <- read.csv("./data/nba_players.csv")
-player_df <- player_file
-rm(player_file)
 player_df <- filter(player_df, !(is.na(first_name)))
 player.table <- data.table(player_df)        
-player.table[display_last_comma_first == "Wall, John", person_id]
+save(player.table, "./data/player.table.Rda")
+write.csv(player.table, "./data/player.table.csv")
