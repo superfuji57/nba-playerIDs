@@ -47,4 +47,4 @@ end.time - start.time
 player_df <- filter(player_df, !(is.na(first_name)))
 player.table <- data.table(player_df)        
 save(player.table, "./data/player.table.Rda")
-write.csv(player.table, "./data/player.table.csv")
+write.csv(player.table, "./data/player.table.csv", row.names=FALSE)
