@@ -1,9 +1,16 @@
 library(httr)
+library(rvest)
 
-shotStats <- function(last_comma_first, from="", to="", gameSegment="", nGames=0, location="",month=0, teamID=0, outcome="",
+load("./data/player.table.Rda")
+
+playerSearch <- function(player_name = ""){
+        id <- player.table[player.table$display_first_last==player_name, 1]
+        return(id)
+}
+
+shotStatsURL <- function(playerID=951, from="", to="", gameSegment="", nGames=0, location="",month=0, outcome="",
          period=0, season="", seasonSegment="", seasonType="Regular+Season",
-         teamID=0, vsConference="", vsDvision="") {
-        playerID <- player.table[]
+         teamID=0, vsConference="", vsDivision="") {
         shots.url <- paste0("http://stats.nba.com/stats/playerdashptshotlog?DateFrom=", from,
                             "&DateTo=", to, 
                             "&GameSegment=", gameSegment,
@@ -21,8 +28,7 @@ shotStats <- function(last_comma_first, from="", to="", gameSegment="", nGames=0
                             "&TeamID=", teamID,
                             "&VsConference=", vsConference,
                             "&VsDivision=", vsDivision)
-        
-        
+        return(shots.url)
 }
 
 # request the URL and parse the JSON
