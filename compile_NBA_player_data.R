@@ -19,10 +19,10 @@ cols <- player_json$resultSets[[1]]$headers # taking the column names from the i
 player_df <- data.frame(matrix(NA, nrow=1, ncol=25)) # empty dataframe
 names(player_df) <- tolower(cols)
 
-# through some digging, I found the list of players to start with the ID 891. As for the end, I looked at
+# through some digging, I found the list of players to start with the ID 700. As for the end, I looked at
 # NBA rookies and found them to be in the low 200Ks. I'm sure there's a better way to do this, but....
 start.time <- Sys.time()
-for (i in 891:300000) {
+for (i in 700:300000) {
         url <- paste0(
                 "http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=",
                 i,
