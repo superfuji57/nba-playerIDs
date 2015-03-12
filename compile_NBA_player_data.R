@@ -4,6 +4,7 @@ library(beepr)
 library(httr)
 library(dplyr)
 library(data.table)
+options(stringsAsFactors = FALSE)
 
 # getting basic info with the John Wall example used in Greg Reda's post
 # http://www.gregreda.com/2015/02/15/web-scraping-finding-the-api/
